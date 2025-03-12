@@ -72,14 +72,24 @@ private static int ackerman(int m, int n){
 }
 
 // Exercício 7
-private static int somaVet(int[] vet, int i){
-    if (i == vet.length){
-        return 0;
+// A partir de um vetor de números inteiros, calcule a soma e o produto dos elementos do vetor.
+private static int[] somaProdVet(int[] vet){
+    if (vet.length == 1){
+        return new int[]{vet[0], vet[0]};
     }
-    int soma = vet[i] + somaVet(vet, i+1);
-    int produto = vet[i] * somaVet(vet, i+1);
+    int[] subVet = new int[vet.length - 1];
+    System.arraycopy(vet, 0, subVet, 0, vet.length - 1);
+    int lastElement = vet[vet.length - 1];
+    return new int[] {lastElement + somaProdVet(subVet)[0], lastElement * somaProdVet(subVet)[1]};
+}
 
-    return soma & produto;
+// Exercicio 8
+// Verifique se uma palavra é palíndroma
+private static boolean isPalindrome(String a){
+    if (a.length() == 1){
+        return true;
+    }
+    return isPalindrome(a.charAt(a.length() - 1) + (a.substring(0, a.length() - 1)));
 }
 
 public static void main(String [] args){
@@ -107,6 +117,11 @@ public static void main(String [] args){
     System.out.println("\nExercicio 7:");
     int[] vet = {1, 2, 3, 4, 5};
     System.out.println("vet {1, 2, 3, 4, 5}");
-    System.out.println(somaVet(vet, 0));
+    for (int i = 0; i < 2; i++){
+    System.out.println(somaProdVet(vet)[i]);}
+
+    System.out.println("\nExercicio 8");
+    System.out.println("String banana");
+    System.out.println(isPalindrome("banana"));
 }
 }
